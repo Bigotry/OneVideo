@@ -1,0 +1,33 @@
+<div class="box">
+    
+  <div class="box-body table-responsive">
+    <table  class="table table-bordered table-hover">
+      <thead>
+      <tr>
+          <th>名称</th>
+          <th>路径</th>
+          <th>数量</th>
+          <th>操作</th>
+      </tr>
+      </thead>
+      
+      {notempty name='list'}
+        <tbody>
+            {volist name='list' id='vo'}
+                <tr>
+                  <td>{$vo.name}</td>
+                  <td>{$vo.model_path}</td>
+                  <td>{$vo.number}</td>
+                  <td class="col-md-1 text-center">
+                      <a href="{:url('trashDataList', array('name' => $vo['name']))}" class="btn"><i class="fa fa-database"></i> 数 据</a>
+                  </td>
+                </tr>
+            {/volist}
+        </tbody>
+        {else/}
+        <tbody><tr class="odd"><td colspan="4" class="text-center" valign="top">{:config('empty_list_describe')}</td></tr></tbody>
+      {/notempty}
+    </table>
+  </div>
+
+</div>

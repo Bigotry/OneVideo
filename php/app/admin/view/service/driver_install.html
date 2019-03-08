@@ -1,0 +1,26 @@
+<form action="{:url()}" method="post" class="form_single">
+    <div class="box">
+      <div class="box-body">
+        <div class="row">
+            {foreach name="param" item="v" key="k" }
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>{$v}</label>
+                    <input class="form-control" name="param[{$k}]" value="{$info['config'][$k]}" placeholder="请输入{$v}" type="text">
+                  </div>
+                </div>
+            {/foreach}
+          </div>
+        </div>
+        
+        <div class="box-footer">
+
+            <input type="hidden" name="service_name" value="{:input('service_class')}"/>
+            <input type="hidden" name="driver_name" value="{:input('driver_class')}"/>
+
+            {include file="layout/edit_btn_group"/}
+            
+        </div>
+        
+      </div>
+</form>

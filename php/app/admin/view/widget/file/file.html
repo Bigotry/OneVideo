@@ -1,0 +1,75 @@
+<link rel="stylesheet" href="__STATIC__/widget/admin/file/Huploadify.css">
+
+<div id="upload_file_{$widget_data['name']}"></div>
+
+<input type="hidden" name="{$widget_data['name']}" id="{$widget_data['name']}" value="{$widget_data['value']}"/>
+
+<div class="upload-img-box{$widget_data['name']}">
+    {notempty name="$info[$widget_data['name']]"}
+    <div class="upload-pre-file">
+        <div style="cursor:pointer;" class="file_del"  onclick="fileDel{$widget_data.name}(this)" ><img src="__STATIC__/widget/admin/file/uploadify-cancel.png" /></div> 
+        <span class="upload_icon_all"></span><a target="_blank" href="{$info[$widget_data['name']]|default=''|get_file_url}">{$info[$widget_data['name']]|default=''|get_file_url}</a></div>
+    {/notempty}
+</div>
+
+<script type="text/javascript">
+
+    var arr = [
+        static_root + 'widget/admin/file/jquery.Huploadify.js',
+        static_root + 'module/common/util/hex_sha1.js'
+    ];
+
+    ob.loadMultiScripts(arr).done(function() {
+
+        $("#upload_file_{$widget_data.name}").Huploadify({
+            auto: true,
+            height: 30,
+            fileObjName: "file",
+            buttonText: "上传文件",
+            uploader: "{:url('File/fileUpload',array('session_id'=>session_id()))}",
+            width: 120,
+            removeTimeout: 1,
+            fileSizeLimit:"{$widget_config['max_size']}",
+            fileTypeExts: "{$widget_config['allow_postfix']}",
+            onChange:changeFile{$widget_data.name},
+            onUploadComplete: uploadFile{$widget_data.name}
+        });
+    });
+    
+    function uploadFile{$widget_data.name}(file, data){
+        
+        var data = $.parseJSON(data);
+        
+        $("#{$widget_data['name']}").val(data.id);
+
+        var src = !data['url'] ? "__ROOT__/upload/picture/" + data.path : data.url;
+        
+        $(".upload-img-box{$widget_data['name']}").html('<div class="upload-pre-file">    <div style="cursor:pointer;" class="file_del"  onclick="fileDel{$widget_data.name}(this)" ><img src="__STATIC__/widget/admin/file/uploadify-cancel.png" /></div>      <span class="upload_icon_all"></span><a target="_blank" href="'+src+'"> ' + src + ' <a></div>');
+    }
+    
+    function fileDel{$widget_data.name}(obj)
+    {
+        
+        var widget_name = "{$widget_data.name}";
+        
+        $("#" + widget_name).val(0);
+        
+        $(obj).parent().remove();
+    }
+
+    function changeFile{$widget_data.name}(file,fileCount,next) {
+        var reader = new FileReader();
+        reader.readAsBinaryString(file);
+        reader.onload = function (ev) {
+            var sha1 = hex_sha1(ev.target.result);
+            $.post("{:url('File/checkFileExists')}",{sha1:sha1}, function (res) {
+                if(res.code) {
+                    uploadFile{$widget_data.name}(file,JSON.stringify(res.data));
+                }else {
+                    //不存在图片则调用下一步
+                    next(file,fileCount);
+                }
+            });
+        }
+    }
+</script>

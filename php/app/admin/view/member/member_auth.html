@@ -1,0 +1,40 @@
+<form action="{:url()}" method="post" class="form_single">
+    
+    <div class="box">
+        
+          <div class="nav-tabs-custom">
+            <div class="tab-content">
+              <div class="active tab-pane">
+                <div class="box-body">
+                    
+                    
+                  <div class='box box-header admin-node-header'>
+
+                            <div class='box-header'>
+                                <div class='checkbox'>
+                                    {volist name='list' id='vo'}
+                                    
+                                        <label class='admin-node-label'>
+                                            
+                                            <input class='rules_all' type='checkbox' name="group_id[]" value="{$vo.id}" {eq name="vo.tag" value='active'} checked='checked' {/eq} > {$vo['name']}
+                                        </label>
+                                    
+                                    {/volist}
+                                </div>
+                            </div>
+                  </div>
+                    
+                </div>
+              </div>
+            </div>
+          </div>
+
+      <div class="box-footer">
+          
+          
+        <input type="hidden" name="id" value="{$id}" />
+         
+        {include file="layout/edit_btn_group"/}
+      </div>
+    </div>
+</form>

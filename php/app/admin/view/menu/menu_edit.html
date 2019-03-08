@@ -1,0 +1,95 @@
+<form action="{:url()}" method="post" class="form_single">
+    <div class="box">
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>名称</label>
+              <span>（系统后台显示菜单名称）</span>
+              <input class="form-control" name="name" placeholder="请输入菜单名称" value="{$info['name']|default=''}" type="text">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>排序值</label>
+              <span>（用户菜单的排序，默认为 0）</span>
+              <input class="form-control" name="sort" placeholder="请输入菜单排序值" value="{$info['sort']|default='0'}" type="text">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>链接</label>
+              <span>（url函数解析的URL或者外链）</span>
+              <input class="form-control" name="url" placeholder="请输入菜单链接" value="{$info['url']|default=''}" type="text">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>上级菜单</label>
+                <span>（所属的上级菜单）</span>
+                <select name="pid" class="form-control">
+                    <option value="0">顶级菜单</option>
+                    {volist name='menu_select' id='vo'}
+                        <option value="{$vo.id}">{$vo.name}</option>
+                    {/volist}
+                </select>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>图标</label>
+              <span>（菜单小图标，为空则显示系统默认图标）</span>
+                    {assign name="icon" value="$info.icon|default=''" /}
+                    {:widget('icon/index', ['name' => 'icon', 'value' => $icon])}
+            </div>
+          </div>
+            
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>是否隐藏</label>
+                <span>（若隐藏则在菜单中不显示）</span>
+                <div>
+                    <label class="margin-r-5"><input type="radio" name="is_hide" value="1"> 是</label>
+                    <label><input type="radio" name="is_hide"  value="0"> 否</label>
+                </div>
+            </div>
+          </div>
+            
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>快捷操作</label>
+                <span>（若为快捷操作则会出现在后台上方顶部菜单栏）</span>
+                <div>
+                    <label class="margin-r-5"><input type="radio" name="is_shortcut" value="1"> 是</label>
+                    <label><input type="radio" name="is_shortcut"  value="0"> 否</label>
+                </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="box-footer">
+          
+        <input type="hidden" name="id" value="{$info['id']|default='0'}"/>
+        
+        <button  type="submit" class="btn ladda-button ajax-post" data-style="slide-up" target-form="form_single">
+            <span class="ladda-label"><i class="fa fa-send"></i> 确 定</span>
+        </button>
+
+        <a class="btn" href="{:url('menuList')}"><i class="fa fa-history"></i> 返 回</a>
+        
+      </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    
+   ob.setValue("is_hide", {$info.is_hide|default=0});
+   ob.setValue("is_shortcut", {$info.is_shortcut|default=0});
+   ob.setValue("pid", {$info.pid|default=0});
+       
+</script>

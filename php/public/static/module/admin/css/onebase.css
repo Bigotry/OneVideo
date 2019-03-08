@@ -1,0 +1,157 @@
+#control-sidebar-home-tab{
+    margin-top: -10px;
+}
+#control-sidebar-settings-tab{
+    margin-top: -10px;
+}
+
+.admin-login-captcha-img{
+    width: 320px; height: 80px;
+}
+
+.admin-login-captcha-input-icon{
+    margin-right: 15px;
+}
+
+.admin-login-box {
+    left: 50%;
+    margin: auto auto auto -180px;
+    position: absolute;
+    text-align: center;
+    top: 10%;
+    width: 360px;
+    opacity: 0.8;
+}
+
+.admin-login-body-background {
+
+    background-color: #000;
+    overflow: hidden;
+}
+
+.login-logo-a{
+    color: #fff !important;
+}
+
+.table-search {
+    
+    width: 150px;
+}
+
+.breadcrumb > li + li::before {
+    color: #000;
+    content: "/ ";
+    padding: 0 5px;
+}
+
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover{
+ 
+    background-color:#777 !important;
+    border-color:#777 !important;
+}
+
+.admin-node-label{
+    
+    margin-left: 20px;
+    font-weight : normal !important;
+}
+
+.admin-node-header label{
+    
+    font-weight : normal !important;
+}
+.admin-list-img-size {
+    
+    max-height: 30px;
+}
+
+.search-input{
+    
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    color: #555;
+    display: block;
+    font-size: 14px;
+    height: 30px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s;
+    float: left;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 2;
+    width: 200px;
+}
+
+/* 图标选择 */
+.js-icon-picker .input-group-addon {
+    cursor: pointer;
+}
+#icon_search {
+    padding: 15px;
+}
+#icon_tab .nav-tabs {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 0 15px;
+}
+#icon_tab i {
+    font-size: 2em;
+}
+.js-icon-list {
+    padding-left: 0;
+    padding-bottom: 1px;
+    margin-bottom: 20px;
+    list-style: none;
+    overflow: hidden;
+}
+.js-icon-list li{
+    float: left;
+    width: 5%;
+    padding: 15px;
+    margin: 0 -1px -1px 0;
+    font-size: 12px;
+    line-height: 1.4;
+    text-align: center;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+.js-icon-list li:hover {
+    background-color: #F5F5F5;
+}
+.js-icon-list li code {
+    display: none;
+}
+
+.content-header{
+    position: relative;
+    padding: 0px;
+    margin-bottom: 10px;
+}
+.breadcrumb{
+    float: right;
+    background: transparent;
+    /*margin-top: 0px !important;*/
+    font-size: 12px;
+    padding: 7px 5px;
+    position: absolute;
+    top: -3px !important;
+    right: 10px;
+    border-radius: 2px;
+}
+
+.checkbox-select-all{
+    width: 30px;
+}
+
+.sort-th{
+    width:50px;
+    text-align: center;
+}
+
+.status-th{
+    width:50px;
+}

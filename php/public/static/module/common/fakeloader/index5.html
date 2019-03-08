@@ -1,0 +1,63 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--><html lang="zh" class="no-js"><!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jQuery炫酷页面预加载Loading特效插件|DEMO6_jQuery之家-自由分享jQuery、html5、css3的插件库</title>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<!--<link rel="stylesheet" href="css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="css/demo.css">
+    <link rel="stylesheet" href="css/fakeLoader.css">
+	<!--[if IE]>
+		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+	<!--[if lt IE 7]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+</head>
+<body>
+	<div class="container">
+		<header class="htmleaf-header">
+			<h1>jQuery炫酷页面预加载Loading特效插件 <span>fakeLoader.js is a lightweight jQuery plugin</span></h1>
+			<div class="htmleaf-links">
+				<a class="htmleaf-icon icon-home" href="http://www.htmleaf.com/" title="jQuery之家" target="_blank"><span> jQuery之家</span></a>
+				<a class="htmleaf-icon icon-arrow-right3" href="http://www.htmleaf.com/jQuery/Layout-Interface/201501241270.html" title="返回下载页" target="_blank"><span> 返回下载页</span></a>
+			</div>
+		</header>
+		<div class="fakeloader"></div>
+
+        <section id="section-navigation">
+        	<div class="htmleaf-demo center">
+			  <a href="index.html">Spinner1</a>
+			  <a href="index1.html">Spinner2</a>
+			  <a href="index2.html">Spinner3</a>
+			  <a href="index3.html">Spinner4</a>
+			  <a href="index4.html">Spinner5</a>
+			  <a href="index5.html" class="current">Spinner6</a>
+			  <a href="index6.html">Spinner7</a>
+			  <a href="index7.html">Spinner8</a>
+			</div>
+        </section>
+		<div class="content bgcolor-8">
+			<h1 style="margin-top:50px;text-align:center;">DOM was loaded</h1>
+		</div>
+	</div>
+	
+	<script src="http://libs.useso.com/js/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/fakeLoader.min.js"></script>
+    <script>
+	    $(document).ready(function(){
+            $(".fakeloader").fakeLoader({
+                timeToHide:1200,
+                bgColor:"#e67e22",
+                spinner:"spinner5"
+            });
+        });
+	</script>
+</body>
+</html>

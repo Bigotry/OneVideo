@@ -1,0 +1,42 @@
+<div class="box">
+    
+  <div class="box-body table-responsive">
+    <table  class="table table-bordered table-hover">
+      <thead>
+      <tr>
+          <th>名称</th>
+          <th>驱动</th>
+          <th>描述</th>
+          <th>版本</th>
+          <th>作者</th>
+          <th>操作</th>
+      </tr>
+      </thead>
+      
+      {notempty name='list'}
+        <tbody>
+            {volist name='list' id='vo'}
+                <tr>
+                  <td>{$vo.driver_name}</td>
+                  <td>{$vo.driver_class}</td>
+                  <td>{$vo.driver_describe}</td>
+                  <td>{$vo.version}</td>
+                  <td>{$vo.author}</td>
+                  <td class="col-md-2 text-center">
+                      {eq name="vo['is_install']" value="1"}
+                        <ob_link><a href="{:url('driverInstall', array('service_class' => input('service_name'), 'driver_class' => $vo['driver_class']))}" class="btn"><i class="fa fa-edit"></i> 设 置</a></ob_link>
+                        <ob_link><a class="btn confirm ajax-get" href="{:url('driverUninstall', array('service_class' => input('service_name'), 'driver_class' => $vo['driver_class']))}"><i class="fa fa-remove"></i> 卸 载</a></ob_link>
+                        {else/}
+                        <ob_link><a href="{:url('driverInstall', array('service_class' => input('service_name'), 'driver_class' => $vo['driver_class']))}" class="btn"><i class="fa fa-refresh"></i> 安 装</a></ob_link>
+                      {/eq}
+                  </td>
+                </tr>
+            {/volist}
+        </tbody>
+        {else/}
+        <tbody><tr class="odd"><td colspan="6" class="text-center" valign="top">{:config('empty_list_describe')}</td></tr></tbody>
+      {/notempty}
+    </table>
+  </div>
+
+</div>

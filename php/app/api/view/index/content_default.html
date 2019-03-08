@@ -1,0 +1,49 @@
+<div id="project">
+  <div class="pull-left">
+    <h2>OneBase API文档</h2>
+  </div>
+  <div class="clearfix"></div>
+</div>
+    <div id="header">
+        <p>
+        
+            此文档为OneBase官方网站提供数据接口，仅供参考，开发者可参考开发手册进行API接口开发。
+            
+            <br/><br/>
+            
+            <a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=3807aa892b97015a8e016778909dee8f23bbd54a4305d827482eda88fcc55b5e"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="OneBase ①" title="OneBase ①"></a>
+        
+        <hr/>
+        
+        <div id="project">
+          <div class="pull-left">
+            <h2>错误码规范</h2>
+            code 第1位（错误提示级别）,第2-3位（错误模块）,第4-7位（错误代码）<br/><br/>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+         
+        <table>
+            <thead>
+            <tr>
+              <th>class</th>
+              <th>property</th>
+              <th>code</th>
+              <th>msg</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {volist name="code_list" id='vo'}
+                <tr>
+                  <td>{$vo.class}</td>
+                  <td>{$vo.property}</td>
+                  <td>{$vo.code}</td>
+                  <td>{$vo.msg}</td>
+                </tr>
+            {/volist}
+            </tbody>
+        </table>
+            
+        </p>
+</div>

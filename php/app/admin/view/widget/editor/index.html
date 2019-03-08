@@ -1,0 +1,36 @@
+<link rel="stylesheet" href="__STATIC__/widget/admin/editor/kindeditor/default/default.css" />
+<script type="text/javascript">
+var arr = [
+    static_root + 'widget/admin/editor/kindeditor/kindeditor.js', 
+];
+
+ob.loadMultiScripts(arr).done(function() {
+    
+    var editor_{$widget_data.name};
+        editor_{$widget_data.name} = KindEditor.create('textarea[name="{$widget_data.name}"]', {
+                allowFileManager : false,
+                themesPath: KindEditor.basePath,
+                width: '100%',
+                height: '{$widget_config.editor_height}',
+                resizeType: {eq name="widget_config.editor_resize_type" value="1"}1 {else /} 0 {/eq},
+                pasteType : 2,
+                urlType : 'absolute',
+                fileManagerJson : '{:url('fileManagerJson')}',
+                uploadJson : "{:url('widget/editorPictureUpload')}",
+                pluginsPath: static_root + 'widget/admin/editor/kindeditor/plugins/',
+                items : [
+                'source',       'undo',             'redo',             'cut',              'copy',             'paste',        'plainpaste',
+                'wordpaste',    'selectall',        'justifyleft',      'justifycenter',    'justifyright',     'justifyfull',  'insertorderedlist',
+                'indent',       'outdent',          'subscript',        'superscript',      'fontname',         'fontsize',     'forecolor',
+                'hilitecolor',  'bold',             'italic',           'underline',        'strikethrough',    'removeformat', 'image',
+                'table',        'link',             'unlink',           'fullscreen',       'emoticons',        'baidumap',      'preview',
+                'print',        'template',         'code',             'quickformat'
+                ],
+                extraFileUploadParams: { session_id : '{:session_id()}'},
+                afterBlur: function(){editor_{$widget_data.name}.sync();}
+            });
+}).fail(function(){
+    
+  alert('kindeditor加载失败...');
+});
+</script>

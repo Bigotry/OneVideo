@@ -1,0 +1,95 @@
+<form action="{:url()}" method="post" class="form_single">
+    <div class="box">
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>名称</label>
+              <span>（用于config函数调用，只能使用英文且不能重复）</span>
+              <input class="form-control" name="name" placeholder="请输入配置名称" value="{$info['name']|default=''}" type="text">
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>配置标题</label>
+              <span>（用于后台显示的配置标题）</span>
+              <input class="form-control" name="title" placeholder="请输入配置标题" value="{$info['title']|default=''}" type="text">
+            </div>
+          </div>
+            
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>配置类型</label>
+                <span>（系统会根据不同类型解析配置值）</span>
+                <select name="type" class="form-control">
+                    {volist name='config_type_list' id='type'}
+                        <option value="{$key}">{$type}</option>
+                    {/volist}
+                </select>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>配置分组</label>
+                <span>（配置分组，不分组则不会显示在系统设置中）</span>
+                <select name="group" class="form-control">
+                    <option value="0">不分组</option>
+                    {volist name='config_group_list' id='group'}
+                        <option value="{$key}">{$group}</option>
+                    {/volist}
+                </select>
+            </div>
+          </div>
+            
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>配置值</label>
+                <span>（配置取值）</span>
+                <textarea class="form-control" name="value" rows="3" placeholder="请输入配置取值">{$info['value']|default=''}</textarea>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>配置项</label>
+                <span>（如果是枚举型 需要配置该项）</span>
+                <textarea class="form-control" name="extra" rows="3" placeholder="请输入配置项">{$info['extra']|default=''}</textarea>
+            </div>
+          </div>
+            
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>描述信息</label>
+                <span>（描述信息/备注）</span>
+                <textarea class="form-control" name="describe" rows="3" placeholder="请输入描述信息">{$info['describe']|default=''}</textarea>
+            </div>
+          </div>
+            
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>排序值</label>
+              <span>（用于分组显示的顺序，默认为 0）</span>
+              <input class="form-control" name="sort" placeholder="请输入菜单排序值" value="{$info['sort']|default='0'}" type="text">
+            </div>
+          </div>
+            
+            
+            
+        </div>
+      </div>
+      <div class="box-footer">
+          
+        <input type="hidden" name="id" value="{$info['id']|default='0'}"/>
+        
+        {include file="layout/edit_btn_group"/}
+      </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    
+   ob.setValue("group", {$info.group|default=0});
+   ob.setValue("type", {$info.type|default=0});
+       
+</script>

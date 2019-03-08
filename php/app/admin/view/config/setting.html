@@ -1,0 +1,266 @@
+<!--
+case value
+0:数字
+1:字符
+2:文本
+3:数组
+4:枚举
+5:图片
+6:文件
+7:富文本
+8:单选
+9:多选
+10:日期
+11:时间
+12:颜色
+-->
+<link rel="stylesheet" href="__STATIC__/module/admin/ext/datetimepicker/css/datetimepicker.css" type="text/css">
+<link rel="stylesheet" href="__STATIC__/module/admin/ext/datetimepicker/css/dropdown.css" type="text/css">
+
+<form action="{:url()}" method="post" class="form_single">
+    
+    <div class="box">
+        
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              {volist name='config_group_list' id='vo'}
+                  {neq name="group" value="$key"}
+                     <li><a href="{:url('setting',array('group' => $key))}">{$vo}</a></li>
+                         {else/}
+                     <li class="active"><a>{$vo}</a></li>
+                  {/neq}
+              {/volist}
+            </ul>
+            <div class="tab-content">
+              <div class="active tab-pane">
+
+                  
+                <div class="box-body">
+                  <div class="row">
+                      
+                    {notempty name='list'}
+                        {volist name='list' id='vo'}
+
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>{$vo.title}</label>
+
+                                    {notempty name="vo['describe']"}
+                                        <span>（{$vo.describe}）</span>
+                                    {/notempty}
+
+                                    {switch name="vo.type"}
+
+
+                                        {case value="0"}
+
+                                            <input class="form-control" name="{$vo.name}" placeholder="请输入设置值" value="{$vo.value}" type="text">
+
+                                        {/case}
+
+                                        {case value="1"}
+
+                                            <input class="form-control" name="{$vo.name}" placeholder="请输入设置值" value="{$vo.value}" type="text">
+
+                                        {/case}
+
+                                        {case value="2"}
+
+                                            <textarea class="form-control" name="{$vo.name}" rows="3" placeholder="请输入设置值">{$vo.value}</textarea>
+
+                                        {/case}
+
+                                        {case value="3"}
+
+                                            <textarea class="form-control" name="{$vo.name}" rows="3" placeholder="请输入设置值">{$vo.value}</textarea>
+
+                                        {/case}
+
+                                        {case value="4"}
+
+                                            <select name="{$vo.name}" class="form-control">
+                                                {volist name=":parse_config_attr($vo['extra'])" id='vv'}
+                                                    <option value="{$key}" {eq name="vo.value" value="$key"} selected {/eq} >{$vv}</option>
+                                                {/volist}
+                                            </select>
+
+                                        {/case}
+
+                                        {case value="5"}
+                                            
+                                            {assign name="case_img_var" value="$vo.value|default='0'" /}
+
+                                            {:widget('file/index', ['name' => $vo['name'], 'value' => $case_img_var, 'type' => 'img'])}
+                                            
+                                            {notempty name="case_img_var"}
+                                                <div class="upload-pre-item">
+                                                    {assign name="case_img_var_url" value="$case_img_var|get_picture_url" /}
+                                                    <a target="_blank" href="{$case_img_var_url}">
+                                                        <img style="max-width: 150px;" src="{$case_img_var_url}"/>
+                                                    </a>
+                                                </div>
+                                            {/notempty}
+                                        {/case}
+                                        
+                                        {case value="6"}
+                                            
+                                            {assign name="case_file_var" value="$vo.value|default='0'" /}
+
+                                            {:widget('file/index', ['name' => $vo['name'], 'value' => $case_file_var, 'type' => 'file'])}
+                                            
+                                            {notempty name="case_file_var"}
+                                                <div class="upload-pre-file">
+                                                    {assign name="case_file_var_url" value="$case_file_var|get_file_url" /}
+                                                    <a target="_blank" href="{$case_file_var_url}">
+                                                        {$case_file_var_url}
+                                                    </a>
+                                                </div>
+                                            {/notempty}
+                                            
+                                        {/case}
+                                        
+                                        {case value="7"}
+                                            
+                                            <textarea class="form-control textarea_editor" name="{$vo.name}" placeholder="请输入富文本内容">{$vo.value|html_entity_decode}</textarea>
+                                            
+                                            {:widget('editor/index', array('name'=> $vo.name,'value'=> ''))}
+                                            
+                                        {/case}
+                                        
+                                        {case value="8"}
+                                        
+                                            {volist name=":parse_config_attr($vo['extra'])" id='vv'}
+                                                <div class="radio">
+                                                  <label>
+                                                    <input name="{$vo.name}" id="{$vo.name}" value="{$key}" {eq name="vo.value" value="$key"} checked="" {/eq}   type="radio">
+                                                    {$vv}
+                                                  </label>
+                                                </div>
+                                            {/volist}
+                                            
+                                        {/case}
+                                        
+                                        {case value="9"}
+                                        
+                                            <input type="hidden" name="{$vo.name}" id="{$vo.name}" value="{$vo.value}"/>
+                                        
+                                            <div>
+                                                {volist name=":parse_config_attr($vo['extra'])" id='vv'}
+
+                                                    <div class="checkbox">
+                                                        <label>
+                                                          <input {in name="$key" value="$vo['value']"} checked="checked" {/in}  type="checkbox" value="{$key}" onclick="selectCheckbox(this)">
+                                                          {$vv}
+                                                        </label>
+                                                    </div>
+
+                                                {/volist}
+                                            </div>
+                                        {/case}
+                                        
+                                        {case value="10"}
+
+                                            <input class="form-control date" name="{$vo.name}" placeholder="请选择或输入日期" value="{$vo.value}" type="text">
+
+                                        {/case}
+                                        
+                                        {case value="11"}
+
+                                            <input class="form-control time" name="{$vo.name}" placeholder="请选择或输入时间" value="{$vo.value}" type="text">
+
+                                        {/case}
+                                        
+                                        {case value="12"}
+
+                                            <input class="form-control" name="{$vo.name}" placeholder="请选择或输入颜色值" value="{$vo.value}" type="color">
+
+                                        {/case}
+                                        
+                                    {/switch}
+                               </div>
+                            </div>
+
+                        {/volist}
+                            {else/}
+                            
+                            <div class="col-md-6">
+                                <tr class="odd"><td colspan="6" class="text-center" valign="top">{:config('empty_list_describe')}</td></tr>
+                            </div>
+                    {/notempty}
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+
+      <div class="box-footer">
+          
+        {include file="layout/edit_btn_group"/}
+        
+      </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+
+    var arr = [
+        static_root + 'module/admin/ext/datetimepicker/js/bootstrap-datetimepicker.min.js', 
+        static_root + 'module/admin/ext/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js', 
+    ];
+    ob.loadMultiScripts(arr).done(function() {
+        $('.date').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true
+        });
+
+        $('.time').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii:ss',
+            language:"zh-CN",
+            minView:0,
+            autoclose:true
+        });
+    });
+
+    function selectCheckbox(obj)
+    {
+        
+        var checkbox_obj = $(obj).parent().parent().parent().prev();
+        
+        var checkbox_obj_ids = checkbox_obj.val();
+        
+        var add_id = $(obj).val();
+            
+        // 选中
+        if ($(obj).is(':checked'))
+        {
+            
+            if (checkbox_obj_ids == '') {
+                
+                checkbox_obj_ids = add_id;
+            } else {
+                checkbox_obj_ids = checkbox_obj_ids + ',' + add_id;
+            }
+            
+            checkbox_obj.val(checkbox_obj_ids);
+            
+        } else {
+            
+            
+            if(checkbox_obj_ids.indexOf(",") > 0)
+            {
+                
+                checkbox_obj_ids.indexOf(add_id) == 0 ? checkbox_obj_ids = checkbox_obj_ids.replace(add_id + ',', '') : checkbox_obj_ids = checkbox_obj_ids.replace(',' + add_id, '');
+                
+                checkbox_obj.val(checkbox_obj_ids);
+            } else {
+                
+                checkbox_obj.val('');
+            }
+        }
+    }
+
+</script>

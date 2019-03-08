@@ -1,0 +1,8 @@
+@charset "utf-8";
+
+.addon-form-group-select{
+    width: 33.33%;
+    float: left;
+    overflow: hidden;
+    margin-bottom: 10px;
+}

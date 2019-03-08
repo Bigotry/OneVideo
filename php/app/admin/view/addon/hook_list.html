@@ -1,0 +1,30 @@
+<div class="box">
+    <div class="box-body">
+        <table  class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>名称</th>
+                    <th>描述</th>
+                    <th>挂载插件</th>
+                </tr>
+            </thead>
+          {notempty name='list'}
+                <tbody>
+                    {volist name='list' id='vo'}
+                        <tr>
+                            <td>{$vo.name}</td>
+                            <td>{$vo.describe}</td>
+                            <td>{$vo.addon_list}</td>
+                        </tr>
+                    {/volist}
+                </tbody>
+            {else/}
+                <tbody><tr class="odd"><td colspan="3" class="text-center" valign="top">{:config('empty_list_describe')}</td></tr></tbody>
+          {/notempty}
+        </table>
+    </div>
+    
+    <div class="box-footer clearfix text-center">
+        {$list->render()}
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="fakeloader"></div>
+<link href="__STATIC__/module/common/fakeloader/css/fakeLoader.css" rel="stylesheet">
+<script src="__STATIC__/module/common/fakeloader/js/fakeLoader.min.js"></script>
+<script type="text/javascript">
+    
+    $(".fakeloader").fakeLoader({
+        timeToHide:99999,
+        bgColor:"rgba(52, 52, 52, .0)",
+        spinner:"spinner{$loading_icon}"
+    });
+    
+    $('.fakeloader').hide();
+    
+    var pjax_mode    = "{$pjax_mode}";
+    var static_root  = "{$static_root}";
+</script>

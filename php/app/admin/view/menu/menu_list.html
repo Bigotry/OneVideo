@@ -1,0 +1,67 @@
+<div class="box">
+  <div class="box-header">
+      <ob_link><a class="btn" href="{:url('menuAdd',array('pid' => $pid))}"><i class="fa fa-plus"></i> 新 增</a></ob_link>
+      <br/>
+  </div>
+    
+  <!-- /.box-header -->
+  <div class="box-body table-responsive">
+    <table  class="table table-bordered table-hover">
+      <thead>
+      <tr>
+          <th class="checkbox-select-all">
+              <label>
+                <input class="flat-grey js-checkbox-all" type="checkbox">
+              </label>
+          </th>
+          <th>名称</th>
+          <th>url</th>
+          <th>图标</th>
+          <th>隐藏</th>
+          <th class="sort-th">排序</th>
+          <th class="status-th">状态</th>
+          <th>操作</th>
+      </tr>
+      </thead>
+      
+      {notempty name='list'}
+        <tbody>
+            {volist name='list' id='vo'}
+                <tr>
+                  <td>
+                    <label>
+                        <input class="flat-grey" type="checkbox" name="ids" value="{$vo.id}">
+                    </label>
+                  </td>
+                  <td>
+                      <ob_link><a class="btn-frameless" href="{:url('menuList', array('pid' => $vo['id']))}">{$vo.name}</a>
+                  </td>
+                  <td>{$vo.url}</td>
+                  <td>{$vo.icon}</td>
+                  <td>{$vo.is_hide_text}</td>
+                  <td><input type="text" class="sort-th sort-text" href="{:url('setSort')}" id="{$vo.id}" value="{$vo.sort}" /></td>
+                  <td><ob_link><a class="ajax-get" href="{:url('setStatus', array('ids' => $vo['id'], 'status' => (int)!$vo['status']))}">{$vo.status_text}</a></ob_link></td>
+                  <td class="col-md-3 text-center">
+                      <a href="{:url('menuList',array('pid' => $vo['id']))}" class="btn"><i class="fa fa-reorder"></i> 子菜单</a>
+                      &nbsp;
+                      <ob_link><a href="{:url('menuEdit',array('id' => $vo['id']))}" class="btn"><i class="fa fa-edit"></i> 编 辑</a></ob_link>
+                      &nbsp;
+                      <ob_link><a class="btn confirm ajax-get" href="{:url('setStatus', array('ids' => $vo['id'], 'status' => $Think.DATA_DELETE))}"><i class="fa fa-trash-o"></i> 删 除</a></ob_link>
+                  </td>
+                </tr>
+            {/volist}
+        </tbody>
+        {else/}
+        <tbody><tr class="odd"><td colspan="8" class="text-center" valign="top">{:config('empty_list_describe')}</td></tr></tbody>
+      {/notempty}
+    </table>
+      
+    {include file="layout/batch_btn_group"/}
+      
+  </div>
+  
+  <div class="box-footer clearfix text-center">
+      {$list->render()}
+  </div>
+
+</div>

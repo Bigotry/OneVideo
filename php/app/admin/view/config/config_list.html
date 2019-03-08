@@ -1,0 +1,108 @@
+<div class="box">
+  <div class="box-header">
+
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="btn-group">
+
+                {empty name="group"}
+                    <a class="btn active">全部</a>
+                       {else/}
+                    <a class="btn" href="{:url('configList')}">全部</a>
+                {/empty}
+
+                {volist name='config_group_list' id='vo'}
+                    {neq name="group" value="$key"}
+                       <a class="btn" href="{:url('configList',array('group' => $key))}">{$vo}</a>
+                           {else/}
+                       <a class="btn active">{$vo}</a>
+                    {/neq}
+                {/volist}
+            </div>
+
+            <ob_link><a class="btn" href="{:url('configAdd',array('group' => $group))}"><i class="fa fa-plus"></i> 新 增</a></ob_link>
+        </div>
+        
+        
+        <div class="col-sm-7">
+            <div class="box-tools search-form pull-right">
+                <div class="input-group input-group-sm">
+                    <input type="text" name="search_data" style="width: 200px;" class="form-control pull-right" value="{:input('search_data')}" placeholder="请输入配置名称或标题">
+                    <div class="input-group-btn">
+                      <button type="button" id="search"  url="{:url('configlist')}" class="btn btn-info btn-flat"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+           </div>
+        </div>
+    </div>
+    
+  </div>
+    
+  <div class="box-body table-responsive">
+    <table  class="table table-bordered table-hover">
+      <thead>
+      <tr>
+          <th class="checkbox-select-all">
+              <label>
+                <input class="flat-grey js-checkbox-all" type="checkbox">
+              </label>
+          </th>
+          <th>
+              <ob_link><a class="text-black ajax-get" is-jump='true' href="{:url('configlist', array('order_field' => 'name', 'order_val' => empty(input('order_val')) ? 1:0))}"><i class="fa fa-sort"></i> 名称</a></ob_link>
+          </th>
+          <th>标题</th>
+          <th>分组</th>
+          <th>类型</th>
+          <th class="sort-th">排序</th>
+          <th class="status-th">状态</th>
+          <th>操作</th>
+      </tr>
+      </thead>
+      
+      {notempty name='list'}
+        <tbody>
+            {volist name='list' id='vo'}
+                <tr>
+                  <td>
+                    <label>
+                        <input class="flat-grey" type="checkbox" name="ids" value="{$vo.id}">
+                    </label>
+                  </td>
+                  <td>{$vo.name}</td>
+                  <td>{$vo.title}</td>
+                  <td>
+                      {eq name='vo.group' value='0'}
+                         未分组
+                         {else/}
+                         {$config_group_list[$vo.group]}
+                      {/eq}
+                  </td>
+                  <td>{$config_type_list[$vo.type]}</td>
+                  <td>
+                      <input type="text" class="sort-th sort-text" href="{:url('setSort')}" id="{$vo.id}" value="{$vo.sort}" />
+                  </td>
+                  <td>
+                      <ob_link><a class="ajax-get" href="{:url('setStatus', array('ids' => $vo['id'], 'status' => (int)!$vo['status']))}">{$vo.status_text}</a></ob_link>
+                  </td>
+                  <td class="col-md-2 text-center">
+                      <ob_link><a href="{:url('configEdit', array('id' => $vo['id']))}" class="btn"><i class="fa fa-edit"></i> 编 辑</a></ob_link>
+                      &nbsp;
+                      <ob_link><a class="btn confirm ajax-get" href="{:url('setStatus', array('ids' => $vo['id'], 'status' => $Think.DATA_DELETE))}"><i class="fa fa-trash-o"></i> 删 除</a></ob_link>
+                  </td>
+                </tr>
+            {/volist}
+        </tbody>
+        {else/}
+        <tbody><tr class="odd"><td colspan="8" class="text-center" valign="top">{:config('empty_list_describe')}</td></tr></tbody>
+      {/notempty}
+    </table>
+    
+    {include file="layout/batch_btn_group"/}
+      
+  </div>
+    
+  <div class="box-footer clearfix text-center">
+      {$list->render()}
+  </div>
+
+</div>

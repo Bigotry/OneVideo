@@ -1,0 +1,105 @@
+<link rel="stylesheet" href="__STATIC__/widget/admin/file/Huploadify.css">
+
+<div id="upload_pictures_{$widget_data['name']}"></div>
+
+<input type="hidden" name="{$widget_data['name']}" id="{$widget_data['name']}" value="{$widget_data['value']}"/>
+
+<div class="upload-img-box{$widget_data['name']}">
+    {notempty name="$info[$widget_data['name']]"}
+    
+        {assign name="img_ids_list" value="$info[$widget_data['name'] . '_array']" /}
+    
+        {volist name="img_ids_list" id='vo'}
+            <div class="upload-pre-item" style="float:left; margin: 10px;">
+                <div style="cursor:pointer;" class="pic_del"  onclick="picDel{$widget_data.name}(this, {$vo})" ><img src="__STATIC__/widget/admin/file/uploadify-cancel.png" /></div> 
+                <a target="_blank" href="{$vo|default='0'|get_picture_url}">
+                    <img style="max-width: {$widget_config['maxwidth']};" src="{$vo|default='0'|get_picture_url}"/>
+                </a>
+            </div>
+        {/volist}
+    {/notempty}
+</div>
+
+<script type="text/javascript">
+    
+    var maxwidth = "{$widget_config['maxwidth']}";
+    
+    var arr = [
+        static_root + 'widget/admin/file/jquery.Huploadify.js',
+        static_root + 'module/common/util/hex_sha1.js'
+    ];
+
+    ob.loadMultiScripts(arr).done(function() {
+
+        $("#upload_pictures_{$widget_data['name']}").Huploadify({
+            auto: true,
+            height          : 30,
+            fileObjName     : "file",
+            buttonText      : "上传图片",
+            uploader        : "{:url('File/pictureUpload',array('session_id'=>session_id()))}",
+            width         : 120,
+            removeTimeout	  : 1,
+            fileSizeLimit:"{$widget_config['max_size']}",
+            fileTypeExts	  : "{$widget_config['allow_postfix']}",
+            onChange:changeFile{$widget_data.name},
+            onUploadComplete : uploadPicture{$widget_data.name}
+        });
+    });
+    
+    function uploadPicture{$widget_data.name}(file, data){
+        
+        var data = $.parseJSON(data);
+        
+        var widget_name = "{$widget_data.name}";
+        
+        var img_ids = $("#" + widget_name).val();
+        
+        var add_id = data.id;
+        
+        if(img_ids){ var lastChar = img_ids.charAt(img_ids.length - 1);  if(lastChar != ','){  add_id = img_ids + ',' + add_id; } }
+        
+        $("#" + widget_name).val(add_id);
+
+        var src = !data['url'] ? "__ROOT__/upload/picture/" + data.path : data.url;
+        
+        $(".upload-img-box" + widget_name).append('<div class="upload-pre-item" style="float:left; margin: 10px;"> <div style="cursor:pointer; " class="pic_del"  onclick="picDel{$widget_data.name}(this,'+data.id+')" ><img src="__STATIC__/widget/admin/file/uploadify-cancel.png" /></div> <a target="_blank" href="' + src + '"> <img style="max-width: ' + maxwidth + ';" src="' + src + '"/></a></div>');
+    }
+    
+    function picDel{$widget_data.name}(obj, pic_id)
+    {
+        
+        var widget_name = "{$widget_data.name}";
+        
+        var img_ids = $("#" + widget_name).val();
+        
+        
+        if(img_ids.indexOf(",") > 0)
+        {
+            
+            img_ids.indexOf(pic_id) == 0 ? img_ids = img_ids.replace(pic_id + ',', '') : img_ids = img_ids.replace(',' + pic_id, '');
+            
+            $("#" + widget_name).val(img_ids);
+        }else{
+            
+            $("#" + widget_name).val('');
+        }
+        
+        $(obj).parent().remove();
+    }
+
+    function changeFile{$widget_data.name}(file,fileCount,next) {
+        var reader = new FileReader();
+        reader.readAsBinaryString(file);
+        reader.onload = function (ev) {
+            var sha1 = hex_sha1(ev.target.result);
+            $.post("{:url('File/checkPictureExists')}",{sha1:sha1}, function (res) {
+                if(res.code) {
+                    uploadPicture{$widget_data.name}(file,JSON.stringify(res.data));
+                }else {
+                    //不存在图片则调用下一步
+                    next(file,fileCount);
+                }
+            });
+        }
+    }
+</script>

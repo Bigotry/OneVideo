@@ -1,0 +1,88 @@
+<form action="{:url()}" method="post" class="form_single">
+    <div class="box">
+      <div class="box-body">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>视频名称</label>
+              <input class="form-control" name="name" placeholder="请输入视频名称" value="{$info['name']|default=''}" type="text">
+            </div>
+          </div>
+            
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>视频分类</label>
+                <select name="category_id" class="form-control">
+                    {volist name='video_category_list' id='vo'}
+                        <option value="{$vo['id']}" {notempty name="info['category_id']"}{if condition="$info['category_id'] eq $vo['id']"} selected="selected" {/if}{/notempty} >{$vo['name']}</option>
+                    {/volist}
+                </select>
+            </div>
+          </div>
+            
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>播放数量</label>
+              <input class="form-control" name="play_number" placeholder="请输入视频播放量" value="{$info['play_number']|default='0'}" type="text">
+            </div>
+          </div>
+            
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>是否推荐</label>
+                <select name="is_recommend" class="form-control">
+                    <option value="0">否</option>
+                    <option value="1">是</option>
+                </select>
+            </div>
+          </div>
+            
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>简介</label>
+              <textarea class="form-control" name="describe" rows="3" placeholder="请输入简介">{$info['describe']|default=''}</textarea>
+            </div>
+          </div>
+            
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>视频文件</label>
+                <span class="">（建议为 .mp4 文件）</span>
+                <br/>
+                {assign name="file_id" value="$info.file_id|default='0'" /}
+                {:widget('file/index', ['name' => 'file_id', 'value' => $file_id, 'type' => 'file'])}
+            </div>
+          </div>
+            
+            
+          <div class="col-md-6">
+            <div class="form-group">
+                <label>封面图片</label>
+                <span class="">（请上传单张封面图片）</span>
+                <br/>
+                {assign name="cover_id" value="$info.cover_id|default='0'" /}
+                {:widget('file/index', ['name' => 'cover_id', 'value' => $cover_id, 'type' => 'img'])}
+            </div>
+          </div>
+            
+            
+
+          </div>
+        
+      <div class="box-footer">
+          
+        <input type="hidden" name="id" value="{$info['id']|default='0'}"/>
+        
+        {include file="layout/edit_btn_group"/}
+        
+      </div>
+        
+      </div>
+      </div>
+</form>
+
+<script type="text/javascript">
+
+    ob.setValue("is_recommend", {$info['is_recommend']|default=0});
+    
+</script>
