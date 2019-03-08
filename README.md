@@ -4,34 +4,21 @@
 OneVideo是一款基于OneBase+UniApp开发的小视频播放移动应用，一次开发7端运行。QQ裙：477824874
 
 #### 软件架构
-软件架构说明
+基于OneBase+UniApp
 
+#### 演示域名
+[效果演示](http://onevideo.onebase.org)
 
 #### 安装教程
 
-1. xxxx
-2. xxxx
-3. xxxx
+1. 新建数据库将php根目录下的sql文件onevideo.sql导入。
+2. 将php文件部署至web目录，在\php\app\database.php文件配置数据库连接，配置域名，URL重写可参考OneBase开发文档配置。
+3. 将compile目录下编译后的前端代码放置域名访问的目录，访问域名即可查看效果。
 
-#### 使用说明
+#### 效果显示
 
-1. xxxx
-2. xxxx
-3. xxxx
+![OneBase](https://images.gitee.com/uploads/images/2019/0308/184454_c5fb3c79_917834.jpeg "QQ图片20190308184435.jpg")
 
-#### 参与贡献
+![OneVideo](https://images.gitee.com/uploads/images/2019/0308/184522_df46393f_917834.jpeg "QQ图片20190308184425.jpg")
 
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+![OneVideo](https://images.gitee.com/uploads/images/2019/0308/184538_3ad40bb5_917834.jpeg "QQ图片20190308184440.jpg")
