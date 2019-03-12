@@ -1,4 +1,6 @@
 # OneVideo
+#### 码云地址
+https://gitee.com/Bigotry/OneBaidu
 
 #### 介绍
 OneVideo是一款基于OneBase+UniApp开发的小视频播放移动应用，一次开发7端运行。QQ裙：477824874
